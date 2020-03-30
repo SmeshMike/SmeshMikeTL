@@ -1,4 +1,6 @@
-#include "String.h"
+#include "../Headers/String.h"
+
+using namespace mstl;
 
 string::string()
 {

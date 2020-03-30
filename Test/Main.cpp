@@ -1,16 +1,19 @@
-#include "String.h"
-#include <stdio.h>
+#include "../Headers/String.h"
+#include <iostream>
+
+using namespace mstl;
 
 int main()
 {
 	string s1 = "dsdsa";
-
 	string s2 = "h,u,i,l,a";
 
-	printf("\n");
+	std::cout << "\n";
 
 
 	for (int i = 0; i < s2.Length(); i++)
-		printf(s2[i].Split(',')->ToCharMas());
+		s2.Split(',');
 
+
+	return 0;
 }

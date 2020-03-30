@@ -1,4 +1,4 @@
-#include "BSTree.h"
+#include "../Headers/BStree.h"
 
 //template<typename type> class bstree
 //{

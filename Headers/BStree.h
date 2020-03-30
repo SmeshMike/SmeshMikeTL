@@ -1,4 +1,5 @@
-#include "String.h"
+#include "../Headers/String.h"
+
 template <typename type> struct node
 {
     node* next;
@@ -13,9 +14,9 @@ private:
     type value;
 public:
     bstree();
-    void Insert(string key, void* data);
-    void Delete(string key);
-    type Find(string key);
+    void Insert(mstl::string key, void* data);
+    void Delete(mstl::string key);
+    type Find(mstl::string key);
     bool EOT();
     ~bstree();
 }; 
