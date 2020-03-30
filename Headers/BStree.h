@@ -6,10 +6,11 @@ template <typename type> struct node
     type value;
 };
 
-template<typename type> class bstree
+template <typename type> class bstree
 {
 private:
-    node* root;
+    node<type>* root;
+    type value;
 public:
     bstree();
     void Insert(string key, void* data);
