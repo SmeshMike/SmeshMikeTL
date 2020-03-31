@@ -10,10 +10,8 @@ int main()
 
 	std::cout << "\n";
 
+	printf((s1+s2).ToCharMas());
 
-	for (int i = 0; i < s2.Length(); i++)
-		s2.Split(',');
+	//printf(s2.Trim(',').ToCharMas());
 
-
-	return 0;
 }

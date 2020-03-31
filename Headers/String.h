@@ -1,7 +1,8 @@
 #ifndef __STRING_H__
 #define __STRING_H__
 
-namespace mstl {
+namespace mstl 
+{
 
 	class string
 	{
@@ -10,14 +11,17 @@ namespace mstl {
 		char* data;
 	public:
 		string();
+		string(int);
 		string(const char*);
-		string& operator= (const string&);
+		string(const string&);
 		~string();
-		bool IsNullOrEmpty(string&);
+		string& operator= (const string&);
 		bool operator== (const string&);
-		string SubString(string, unsigned long, unsigned long);
 		string operator+ (const string&);
 		string operator[] (unsigned long);
+		bool IsNullOrEmpty();
+		bool IsNullOrWhiteSpace();
+		string SubString(string, unsigned long, unsigned long);
 		const char* ToCharMas();
 		string* Split(char);
 		string Trim();

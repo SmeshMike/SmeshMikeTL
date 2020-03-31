@@ -10,6 +10,25 @@ string::string()
 	
 }
 
+string::string(int size)
+{
+	this->size = size;
+	data = new char[size + 1];
+	data[size] = '\0';
+
+}
+
+string::string(const string& str)
+{
+	this->size = str.size;
+	this->data = new char[size + 1];
+	for (unsigned long i = 0; i < str.size; i++)
+	{
+		this->data[i] = str.data[i];
+	}
+	this->data[size] = '\0';
+}
+
 string& string::operator=(const string& str)
 {
 	if (&str == this)
@@ -46,20 +65,20 @@ bool string::operator==(const string& str)
 string string::operator+ (const string& str)
 {
 	int len = this->size + str.size;
-	string* out = new string[len];
-	(*out).size = len;
-	(*out).data = new char[(*out).size + 1];
+	string out =  string(len);
+	out.size = len;
+	out.data = new char[out.size + 1];
 	for (unsigned long i = 0; i < this->size; i++)
 	{
-		(*out).data[i] = this->data[i];
+		out.data[i] = this->data[i];
 	}
 	for (unsigned long i = 0; i < str.size; i++)
 	{
-		(*out).data[i+ this->size] = str.data[i];
+		out.data[i+ this->size] = str.data[i];
 	}
-	(*out).data[(*out).size] = '\0';
+	out.data[out.size] = '\0';
 
-	return *out;
+	return out;
 }
 
 string::string(const char* chr)
@@ -79,9 +98,22 @@ string::~string()
 	delete[] data;
 }
 
-bool string::IsNullOrEmpty(string& str)
+bool string::IsNullOrEmpty()
 {
 	if (this->size == 0 && this->data[0] == '\0')
+		return true;
+	return false;
+}
+
+bool string::IsNullOrWhiteSpace()
+{
+	bool marker = true;
+	for (unsigned long i = 0; i < this->size; i++)
+	{
+		if (this->data[i] != ' ')
+			marker = false;
+	}
+	if ((this->size == 0 && this->data[0] == '\0')||marker)
 		return true;
 	return false;
 }
@@ -108,6 +140,7 @@ const char* string::ToCharMas()
 	{
 		out[i] = this->data[i];
 	}
+	out[len] = '\0';
 	
 	return out;
 }
@@ -118,6 +151,10 @@ string* string::Split(char ch)
 	for (unsigned long i = 0; i < this->size; i++)
 		if(this->data[i]==ch)
 			len++;
+	if (data[this->size] != ch)
+		len++;
+
+	
 	string* mas = new string[len];
 
 	unsigned long coun = 0;
@@ -125,16 +162,17 @@ string* string::Split(char ch)
 	unsigned long k = 0;
 	while (coun != len)
 	{
-		if (this->data[i] != ch)
+		if (this->data[i] != ch && i<this->size)
 		{
 			mas[coun].data[k] = this->data[i];
-			k++; i++;
+			i++;  k++;
+			mas[coun].size = k;
+			mas[coun].data[k] = '\0';
+
 		}
 		else 
 		{
-			mas[coun].size = i;
-			mas[coun].data[k] = '\0'; 
-			coun++; i++; k = 0; 
+			coun++; i++; k = 0;
 		}
 
 	}
@@ -144,23 +182,56 @@ string* string::Split(char ch)
 string string::Trim(char ch)
 {
 	unsigned long k = 0;
-	string str;
+	for (unsigned long i = 0; i < this->size; i++)
+		if (this->data[i] == ch)
+			k++;
+	
+	string str= string(this->size - k);
+
+	k = 0;
+	
 	for (unsigned long i = 0; i< this->size; i++)
 	{
 		if (this->data[i] != ch)
 		{
-			str.data[i-k] = this->data[i];
-		}
-		else
+			(str).data[k] = this->data[i];
 			k++;
-		str.size = i;
+		}
 	}
 
-	str.data[size + 1] = '\0';
-	return str;
+	(str).size = k;
+
+	(str).data[k] = '\0';
+	return (str);
 }
 
 unsigned long string::Length()
 {
 	return this->size;
+}
+
+string string::Trim()
+{
+	unsigned long k = 0;
+	for (unsigned long i = 0; i < this->size; i++)
+		if (this->data[i] == ' ')
+			k++;
+
+	string str = string(k);
+
+	k = 0;
+
+	for (unsigned long i = 0; i < this->size; i++)
+	{
+		if (this->data[i] != ' ')
+		{
+			(str).data[k] = this->data[i];
+			k++;
+		}
+	}
+
+	(str).size = k;
+
+	(str).data[k] = '\0';
+	return (str);
 }
